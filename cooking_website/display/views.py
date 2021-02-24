@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def Homepage(request):
-    return HttpResponse('This is homepage.')
-
+    #return HttpResponse('This is homepage.')
+    return render(request,'display/homepage.html/')
 def SearchTool(request):
     return HttpResponse('This is search tool.')
 
