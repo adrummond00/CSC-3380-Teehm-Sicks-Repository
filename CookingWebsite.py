@@ -10,13 +10,16 @@ class MealPlan:
 
 
 class RecipeSubmission:
-    def __init__(self, type, meat, vegetables, carbs, sauces):
+    def __init__(self, name, type, meat, vegetables, carbs, sauces):
+        self.name = name
         self.type = type
         self.meat = meat
         self.vegetables = vegetables
         self.carbs = carbs
         self.sauces = sauces
-    recipeSubmit = open("RecipeFile.txt", "w+")
+    recipeSubmit = open("RecipeFile.txt", "a")
+    recipeSubmit.write('* ', name, '& ')
+    recipeSubmit.close()
 
 
 class ListRecipes:
