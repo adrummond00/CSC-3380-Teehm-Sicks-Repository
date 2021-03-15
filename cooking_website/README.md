@@ -1,4 +1,8 @@
-You'll need Python3 and Django to run this.
+You'll need Python3, Django, ubuntu(from microsoft store), pip3 to run this.
+
+In Ubuntu:
+"sudo apt-get update"
+"sudo apt install python3-pip"
 
 To run: `python3 manage.py runserver`
 
