@@ -18,6 +18,8 @@ In Ubuntu:
 
 To run: `python3 manage.py runserver`
 
+"python3 manage.py migrate" if an error pops up
+
 Access homepage at http://127.0.0.1:8000/
 
 Access search tool at http://127.0.0.1:8000/search
