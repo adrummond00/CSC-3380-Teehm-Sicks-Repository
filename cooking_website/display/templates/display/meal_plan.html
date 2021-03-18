@@ -1,0 +1,15 @@
+<html>
+    <title>
+
+    </title>
+    <body>
+        <fieldset>
+            <form method="POST" action = "">
+                <legend><h3>Meal plan</h3></legend>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br><input type="submit" value="View"/>
+            </form>
+        </fieldset>
+    </body>
+</html>
