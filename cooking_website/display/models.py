@@ -15,13 +15,13 @@ class RecipeSubmissionForm (forms.Form):
     name = forms.CharField(label="Name")
     ingredients = forms.CharField(label="Ingredients",widget=forms.Textarea())
     direction = forms.CharField(label="Direction",widget=forms.Textarea())
-    recipeSubmit = open("RecipeFile.txt", "a");
+    recipeSubmit = open("DataBase.txt", "a");
     recipeSubmit.write('\n* ');
     recipeSubmit.write(name);
-    recipeSubmit.write(' & ');
+    recipeSubmit.write('\n& ');
     recipeSubmit.write(ingredients);
-    recipeSubmit.write(" $ ");
+    recipeSubmit.write("\n$ ");
     recipeSubmit.write(cost);
-    recipeSubmit.write(" : ");
+    recipeSubmit.write("\n: ");
     recipeSubmit.write(direction);
     recipeSubmit.close();
