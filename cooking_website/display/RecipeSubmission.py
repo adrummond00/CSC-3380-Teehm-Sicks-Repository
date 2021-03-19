@@ -1,3 +1,4 @@
+from models import cost, name, ingredients, direction
 class RecipeSubmission:
     otherClass = RecipeSubmissionForm()
     recipeSubmit = open("Database.txt", "a")
