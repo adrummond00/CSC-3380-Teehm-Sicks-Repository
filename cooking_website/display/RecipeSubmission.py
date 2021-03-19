@@ -1,7 +1,7 @@
 from models import cost, name, ingredients, direction
 class RecipeSubmission:
     otherClass = RecipeSubmissionForm()
-    recipeSubmit = open("Database.txt", "a")
+    recipeSubmit = open("DataBase.txt", "a")
     recipeSubmit.write('\n* ')
     recipeSubmit.write(otherClass.name)
     recipeSubmit.write(' & ')
