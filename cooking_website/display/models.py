@@ -62,7 +62,7 @@ class SearchEngine(models.Model):
 
         
 
-        file = open('DataBase.txt', 'r')
+        file = open('display/DataBase.txt', 'r')
         i=-1
         for line in file:
 
