@@ -29,7 +29,7 @@ def MealPlan(request):
     return HttpResponse('This is meal plan page.')
 
 def RecipeSubmissionProcess(cost, name, ingredients, direction):
-    form = RecipeSubmissionForm()
+    #form = RecipeSubmissionForm()
     recipeSubmit = open("display/DataBase.txt", "a")
     recipeSubmit.write('\n*\n')
     recipeSubmit.write(name)
