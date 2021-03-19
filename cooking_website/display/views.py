@@ -14,9 +14,11 @@ def RecipeSubmission(request):
     form = RecipeSubmissionForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            price_range = form['price_filter'].data
-            #recipe = form['recipe'].data
-            print(price_range)
+            cost = form['cost'].data
+            name = form['name'].data
+            ingredients = form['ingredients'].data
+            direction = form['direction'].data
+            print(cost)
     return render(request,'display/recipe_submission.html/', {'form':form})
 
 def MealPlan(request):

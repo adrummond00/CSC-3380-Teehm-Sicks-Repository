@@ -15,3 +15,4 @@ class RecipeSubmissionForm (forms.Form):
     name = forms.CharField(label="Name")
     ingredients = forms.CharField(label="Ingredients",widget=forms.Textarea())
     direction = forms.CharField(label="Direction",widget=forms.Textarea())
+#class MealPlanForm (forms.Form):
