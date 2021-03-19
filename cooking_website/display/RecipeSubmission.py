@@ -1,5 +1,5 @@
 from models import cost, name, ingredients, direction
-class RecipeSubmission:
+class RecipeSubmissionProcess:
     otherClass = RecipeSubmissionForm()
     recipeSubmit = open("DataBase.txt", "a")
     recipeSubmit.write('\n* ')
