@@ -7,7 +7,7 @@ class RecipeSubmission:
     recipeSubmit.write(' & ')
     recipeSubmit.write(otherClass.ingredients)
     recipeSubmit.write(" $ ")
-    recipeSubmit.write(otherClass.cost)
+    recipeSubmit.write("10")
     recipeSubmit.write(" : ")
     recipeSubmit.write(otherClass.direction)
     recipeSubmit.close()
