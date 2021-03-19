@@ -1,14 +1,13 @@
-from .models import RecipeSubmissionForm
-
 class RecipeSubmission:
-    recipeSubmit = open("Database.txt", "a");
-    recipeSubmit.write('\n* ');
-    recipeSubmit.write(RecipeSubmissionForm.name);
-    recipeSubmit.write('\n& ');
-    recipeSubmit.write(ingredients);
-    recipeSubmit.write("\n$ ");
-    recipeSubmit.write(cost);
-    recipeSubmit.write("\n: ");
-    recipeSubmit.write(direction);
-    recipeSubmit.close();
+    otherClass = RecipeSubmissionForm()
+    recipeSubmit = open("Database.txt", "a")
+    recipeSubmit.write('\n* ')
+    recipeSubmit.write(otherClass.name)
+    recipeSubmit.write(' & ')
+    recipeSubmit.write(otherClass.ingredients)
+    recipeSubmit.write(" $ ")
+    recipeSubmit.write(otherClass.cost)
+    recipeSubmit.write(" : ")
+    recipeSubmit.write(otherClass.direction)
+    recipeSubmit.close()
     
