@@ -11,7 +11,7 @@ class SearchToolForm (forms.Form):
     name = forms.CharField(label="Name")
     ingredients = forms.CharField(label="Ingredients",widget=forms.Textarea())
 class RecipeSubmissionForm (forms.Form):
-    cost = forms.CharField(label="Cost",widget=forms.Textarea())
+    cost = forms.CharField(widget=forms.Select(choices=price_range))
     name = forms.CharField(label="Name")
     ingredients = forms.CharField(label="Ingredients",widget=forms.Textarea())
     direction = forms.CharField(label="Direction",widget=forms.Textarea())
