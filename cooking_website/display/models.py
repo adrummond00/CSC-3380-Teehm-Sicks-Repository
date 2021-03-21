@@ -6,6 +6,21 @@ price_range = (
     ('5_10','$5-$10'),
     ('10-15','$10-$15'),
 )
+
+days = (
+    ('Sunday','Sunday'),
+    ('Monday','Monday'),
+    ('Tuesday','Tuesday'),
+    ('Wednesday','Wednesday'),
+    ('Thursday','Thursday'),
+    ('Friday','Friday'),
+    ('Saturday','Saturday'),
+)
+
+class MealPlanForm (forms.Form):
+    name = forms.CharField(label="Meal Name")
+    day = forms.CharField(label='Day', widget=forms.Select(choices= days))
+
 class SearchToolForm (forms.Form):
     price_filter = forms.CharField(widget=forms.Select(choices=price_range))
     name = forms.CharField(label="Name")
