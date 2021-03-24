@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import SearchToolForm, RecipeSubmissionForm
+from .models import SearchToolForm, RecipeSubmissionForm, MealPlanForm
+import shutil
+import re
 
 def Homepage(request):
     return render(request,'display/homepage.html/')
@@ -24,9 +26,16 @@ def RecipeSubmission(request):
     return render(request,'display/recipe_submission.html/', {'form':form})
 
 def MealPlan(request):
+    form = MealPlanForm(request.POST or None)
     #test = SearchEngine("hello","hello","hello")
     #print(test._price)
-    return HttpResponse('This is meal plan page.')
+    if request.method == 'POST':
+        if form.is_valid():
+            name = form['name'].data
+            day = form['day'].data
+            AddToMealPlan(name, day)
+
+    return render(request, 'display/meal_plan.html/', {'form':form})
 
 def RecipeSubmissionProcess(cost, name, ingredients, direction):
     #form = RecipeSubmissionForm()
@@ -40,3 +49,26 @@ def RecipeSubmissionProcess(cost, name, ingredients, direction):
     recipeSubmit.write("\n: ")
     recipeSubmit.write(direction)
     recipeSubmit.close()
+
+def AddToMealPlan(name, day):
+    comp = day + ":\n"
+    i = 0
+    mealPlan = open("display/MealPlanTemplate.txt", "r")
+    allLines = mealPlan.readlines()
+    size = len(allLines)
+    #print(name)
+    #print(allLines[0])
+    while i < size-1:
+        line = allLines[i]
+        #print(comp)
+       #print(line)
+        if line == comp:
+            
+            allLines[i+1] = name + "\n"
+        i += 1
+    mealPlan.close()
+    #print(allLines)
+    mealPlan = open("display/MealPlanTemplate.txt", "w")
+    mealPlan.writelines(allLines)
+    mealPlan.close()
+    
