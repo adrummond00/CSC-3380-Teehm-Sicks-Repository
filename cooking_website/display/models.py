@@ -17,6 +17,16 @@ days = (
     ('Saturday','Saturday'),
 )
 
+class Filter:
+
+    def __init__(self, key):
+
+        self._key = key
+        #key is the keyword being used to search
+
+    def showKey(self):
+        print(self._key)
+        
 class MealPlanForm (forms.Form):
     name = forms.CharField(label="Meal Name")
     day = forms.CharField(label='Day', widget=forms.Select(choices= days))
