@@ -1,6 +1,6 @@
 #By Anthony Vuong
 #Inherited from Filter.py
-from Filter import Filter
+from .Filter import Filter
 
 class NameFilter(Filter):
 

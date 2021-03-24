@@ -21,7 +21,7 @@ def SearchTool(request):
             obj._nameFilter = name
             obj._ingredientsFilter = ingredients
             obj.printEverything()
-            #print(obj.searchFilters())
+            print(obj.searchFilters())
 
     return render(request,'display/search_tool.html/', {'form':form})
 

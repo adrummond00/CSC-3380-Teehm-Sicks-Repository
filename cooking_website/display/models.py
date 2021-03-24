@@ -1,5 +1,9 @@
 from django.db import models
 from django import forms
+from .Filter import Filter
+from .PriceFilter import PriceFilter
+from .NameFilter import NameFilter
+from .IngredientFilter import IngredientFilter
 
 price_range = (
     ('under_5','Under $5'),
@@ -32,9 +36,9 @@ class MealPlanForm (forms.Form):
     day = forms.CharField(label='Day', widget=forms.Select(choices= days))
 
 class SearchToolForm (forms.Form):
-    price_filter = forms.CharField(widget=forms.Select(choices=price_range))
-    name = forms.CharField(label="Name")
-    ingredients = forms.CharField(label="Ingredients",widget=forms.Textarea())
+    price_filter = forms.CharField(widget=forms.Select(choices=price_range), required=False)
+    name = forms.CharField(label="Name", required=False)
+    ingredients = forms.CharField(label="Ingredients",widget=forms.Textarea(), required=False)
 
 class RecipeSubmissionForm (forms.Form):
     cost = forms.CharField(widget=forms.Select(choices=price_range))
@@ -91,7 +95,7 @@ class SearchEngine():
         self.__newIngredientFilter()
         
         #searches through the recipe database and looks for special symbols that denote the type of information on that line
-        file = open('DataBase.txt', 'r')
+        file = open('display/DataBase.txt', 'r')
         
         i=-1    #keeps track of what recipe we are on
        

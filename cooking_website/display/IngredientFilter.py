@@ -1,6 +1,6 @@
 #by Anthony Vuong
 #inherited from Filter.py
-from Filter import Filter
+from .Filter import Filter
 
 #the key for this class is a list of strings (ingredients)
 class IngredientFilter(Filter):
