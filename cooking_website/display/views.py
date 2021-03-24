@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import SearchToolForm, RecipeSubmissionForm, MealPlanForm
+from .models import SearchToolForm, RecipeSubmissionForm, MealPlanForm, SearchEngine
 import shutil
 import re
+#from .SearchEngine import SearchEngine
 
 def Homepage(request):
     return render(request,'display/homepage.html/')
@@ -12,6 +13,16 @@ def SearchTool(request):
     if request.method == 'POST':
         if form.is_valid():
             price_range = form['price_filter'].data
+            name = form['name'].data
+            ingredients = form['ingredients'].data
+
+            obj = SearchEngine()
+            obj._priceFilter = price_range
+            obj._nameFilter = name
+            obj._ingredientsFilter = ingredients
+            obj.printEverything()
+            #print(obj.searchFilters())
+
     return render(request,'display/search_tool.html/', {'form':form})
 
 def RecipeSubmission(request):

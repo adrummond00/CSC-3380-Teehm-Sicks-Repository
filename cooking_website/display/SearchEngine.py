@@ -95,4 +95,9 @@ class SearchEngine():
             self.__hits[j+1] = key
             self.__recipes[j+1] = ikey
         
+    #print stuffs
+    def printEverything(self):
+        print(self._nameFilter)
+        print(self._priceFilter)
+        print(self._ingredientsFilter)
 

@@ -32,9 +32,9 @@ class RecipeSubmissionForm (forms.Form):
     ingredients = forms.CharField(label="Ingredients",widget=forms.Textarea())
     direction = forms.CharField(label="Direction",widget=forms.Textarea())
 
-class SearchEngine(models.Model):
-    __recipes = []
-    __hits = []
+class SearchEngine():
+    __recipes = [] #list of recipes names
+    __hits = [] #associated list with __recipes with each index containing a number denoting the correlating recipe's relevance
     
     
     def __init__(self):       
@@ -50,16 +50,18 @@ class SearchEngine(models.Model):
         self._priceFilter = (self.__recipes, 'none')
         self._nameFilter = (self.__recipes, 'none')
         
-
+    #changes price key
     def changePrice(self, price):
         self._price = price
-        
+    #changes Name key
     def changeName(self, Name):
         self._name = Name
-
+    #adds ingredient to ingredients list
     def addIngredients(self, ingredients):
         self._ingredients = ingredients.split(",")
-        
+   
+
+    #initializes the filters for searching
     def __newNameFilter(self):
         self._nameFilter = NameFilter(self._name)
 
@@ -68,37 +70,40 @@ class SearchEngine(models.Model):
 
     def __newIngredientFilter(self):
         self._ingredientsFilter = IngredientFilter(self._ingredients)
-        
+    
+    
+    #Search method
     def searchFilters(self):
-
+        
+        #initializes all the filters
         self.__newNameFilter()
         self.__newPriceFilter()
         self.__newIngredientFilter()
-
         
-
-        file = open('display/DataBase.txt', 'r')
-        i=-1
+        #searches through the recipe database and looks for special symbols that denote the type of information on that line
+        file = open('DataBase.txt', 'r')
+        
+        i=-1    #keeps track of what recipe we are on
+       
         for line in file:
-
             
-            if '*' in line:
+            if '*' in line: #name symbol
                 i += 1
                 self.__recipes.append(line.strip('*').strip('\n'))
                 self.__hits.append(0)
                 self.__hits[i] = self._nameFilter.search(line, self.__hits[i])
 
-            if '$' in line:
+            if '$' in line: #price symbol
                 self.__hits[i] = self._priceFilter.search(line, self.__hits[i])
 
-            if '&' in line:
-                self.__hits[i] = self._ingredientsFilter.search(line, self.__hits[i])
-            
-            
+            if '&' in line: #ingredient symbol
+                self.__hits[i] = self._ingredientsFilter.search(line, self.__hits[i])                  
         file.close()
         
+        #sorts our list using the weight list
         self.insertionSort()
-        return self.__recipes
+        
+        return self.__recipes   #returns sorted __recipes list 
 
     #modified insertion sort for our purposes
     def insertionSort(self): 
@@ -116,4 +121,8 @@ class SearchEngine(models.Model):
             self.__hits[j+1] = key
             self.__recipes[j+1] = ikey
         
-
+    #print stuffs
+    def printEverything(self):
+        print(self._nameFilter)
+        print(self._priceFilter)
+        print(self._ingredientsFilter)
