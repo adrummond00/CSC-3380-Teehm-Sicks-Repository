@@ -17,12 +17,7 @@ class SearchEngine():
         #default filter settings
         self._price = 'none'
         self._name = 'none'
-        self._ingredients = 'none'
-
-        #initialize filters with no settings/keys
-        self._ingredientsFilter = (self.__recipes, [])
-        self._priceFilter = (self.__recipes, 'none')
-        self._nameFilter = (self.__recipes, 'none')
+        self._ingredients = []
         
     #changes price key
     def changePrice(self, price):
