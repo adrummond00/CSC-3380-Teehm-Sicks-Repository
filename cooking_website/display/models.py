@@ -57,12 +57,7 @@ class SearchEngine():
         #default filter settings
         self._price = 'none'
         self._name = 'none'
-        self._ingredients = 'none'
-
-        #initialize filters with no settings/keys
-        self._ingredientsFilter = (self.__recipes, [])
-        self._priceFilter = (self.__recipes, 'none')
-        self._nameFilter = (self.__recipes, 'none')
+        self._ingredients = []
         
     #changes price key
     def changePrice(self, price):
@@ -89,7 +84,7 @@ class SearchEngine():
     #Search method
     def searchFilters(self):
         
-        #resets weight list
+        #resets weight lists
         self.__recipes = []
         self.__hits = []
         
@@ -121,7 +116,10 @@ class SearchEngine():
         #sorts our list using the weight list
         self.insertionSort()
         self.hideRecipes()
+<<<<<<< HEAD
         
+=======
+>>>>>>> c61045c4fc116c9d5b3ead738960b4e2cdd15cc0
         return self.__recipes   #returns sorted __recipes list 
     
 
@@ -140,7 +138,11 @@ class SearchEngine():
                     j -= 1
             self.__hits[j+1] = key
             self.__recipes[j+1] = ikey
+<<<<<<< HEAD
      
+=======
+            
+>>>>>>> c61045c4fc116c9d5b3ead738960b4e2cdd15cc0
     #deletes recipes with no weight
     def hideRecipes(self):
         
