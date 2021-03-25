@@ -89,6 +89,10 @@ class SearchEngine():
     #Search method
     def searchFilters(self):
         
+        #resets weight lists
+        self.__recipes = []
+        self.__hits = []
+        
         #initializes all the filters
         self.__newNameFilter()
         self.__newPriceFilter()
