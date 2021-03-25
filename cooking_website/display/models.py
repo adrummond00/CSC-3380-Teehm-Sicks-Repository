@@ -89,6 +89,10 @@ class SearchEngine():
     #Search method
     def searchFilters(self):
         
+        #resets weight list
+        self.__recipes = []
+        self.__hits = []
+        
         #initializes all the filters
         self.__newNameFilter()
         self.__newPriceFilter()
@@ -116,8 +120,10 @@ class SearchEngine():
         
         #sorts our list using the weight list
         self.insertionSort()
+        self.hideRecipes()
         
         return self.__recipes   #returns sorted __recipes list 
+    
 
     #modified insertion sort for our purposes
     def insertionSort(self): 
@@ -134,6 +140,13 @@ class SearchEngine():
                     j -= 1
             self.__hits[j+1] = key
             self.__recipes[j+1] = ikey
+     
+    #deletes recipes with no weight
+    def hideRecipes(self):
+        
+        for i in range(len(self.__hits)):
+            if self.__hits[len(self.__hits)-i-1] == 0:
+                del self.__recipes[len(self.__hits)-i-1]
         
     #print stuffs
     def printEverything(self):

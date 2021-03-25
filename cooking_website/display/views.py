@@ -17,13 +17,23 @@ def SearchTool(request):
             ingredients = form['ingredients'].data
 
             obj = SearchEngine()
-            obj._priceFilter = price_range
+            obj._priceFilter = price_range   
             obj._nameFilter = name
             obj._ingredientsFilter = ingredients
             obj.printEverything()
-            print(obj.searchFilters())
+            recipes = obj.searchFilters()
+            print(recipes)
 
-    return render(request,'display/search_tool.html/', {'form':form})
+            #once we have the list of recipes, go read the ingredients for each one
+            for i in range (0,len(recipes)):
+                print(i)
+            return render(request,'display/search_tool.html/', {
+                'form':form,
+                'recipe':recipes
+            })
+    return render(request,'display/search_tool.html/', {
+        'form':form
+    })
 
 def RecipeSubmission(request):
     form = RecipeSubmissionForm(request.POST or None)
