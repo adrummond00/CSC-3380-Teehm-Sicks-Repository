@@ -59,6 +59,12 @@ class SearchEngine():
         self._name = 'none'
         self._ingredients = []
         
+        #default filter initialization
+        self._nameFilter = NameFilter(self._name)
+        self._priceFilter = PriceFilter(self._price)
+        self._ingredientsFilter = IngredientFilter(self._ingredients)
+
+        
     #changes price key
     def changePrice(self, price):
         self._price = price
@@ -102,7 +108,7 @@ class SearchEngine():
             
             if '*' in line: #name symbol
                 i += 1
-                self.__recipes.append(line.strip('*').strip('\n'))
+                self.__recipes.append(line.strip('* ').strip('\n'))
                 self.__hits.append(0)
                 self.__hits[i] = self._nameFilter.search(line, self.__hits[i])
 
@@ -116,10 +122,6 @@ class SearchEngine():
         #sorts our list using the weight list
         self.insertionSort()
         self.hideRecipes()
-<<<<<<< HEAD
-        
-=======
->>>>>>> c61045c4fc116c9d5b3ead738960b4e2cdd15cc0
         return self.__recipes   #returns sorted __recipes list 
     
 
@@ -138,11 +140,7 @@ class SearchEngine():
                     j -= 1
             self.__hits[j+1] = key
             self.__recipes[j+1] = ikey
-<<<<<<< HEAD
-     
-=======
-            
->>>>>>> c61045c4fc116c9d5b3ead738960b4e2cdd15cc0
+
     #deletes recipes with no weight
     def hideRecipes(self):
         
@@ -152,6 +150,6 @@ class SearchEngine():
         
     #print stuffs
     def printEverything(self):
-        print(self._nameFilter)
-        print(self._priceFilter)
-        print(self._ingredientsFilter)
+        self._nameFilter.showKey()
+        self._priceFilter.showKey()
+        self._ingredientsFilter.showKey()
