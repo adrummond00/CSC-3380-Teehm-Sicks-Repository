@@ -144,6 +144,6 @@ class SearchEngine():
         
     #print stuffs
     def printEverything(self):
-        print(self._nameFilter)
-        print(self._priceFilter)
-        print(self._ingredientsFilter)
+        self._nameFilter.showKey()
+        self._priceFilter.showKey()
+        self._ingredientsFilter.showKey()
