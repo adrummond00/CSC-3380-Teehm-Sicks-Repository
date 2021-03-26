@@ -23,7 +23,6 @@ def SearchTool(request):
             obj.printEverything()
             recipes = obj.searchFilters()
             print(recipes)
-            FindRecipeDetails(recipes)
 
             #once we have the list of recipes, go read the ingredients for each one
             for i in range (0,len(recipes)):
@@ -35,18 +34,6 @@ def SearchTool(request):
     return render(request,'display/search_tool.html/', {
         'form':form
     })
-
-def FindRecipeDetails(recipes):
-    read = open("display/DataBase.txt", "r")
-    for line in read:
-        if '*' in line:
-            if line.strip('* ').strip('\n') in recipes:
-                outputDetails.write(line.strip('* '))
-                outputDetails.write(next(read).strip('& '))
-                outputDetails.write(next(read).strip('$ '))
-                outputDetails.write(next(read).strip(': '))
-                outputDetails.close()
-    read.close()
 
 def RecipeSubmission(request):
     form = RecipeSubmissionForm(request.POST or None)
