@@ -16,13 +16,23 @@ def SearchTool(request):
             name = form['name'].data
             ingredients = form['ingredients'].data
 
+            if price_range == 'under_5':
+                price_range = 5
+            elif price_range == '5_10':
+                price_range = 10
+            else:
+                price_range = 15
+
+            
+
             obj = SearchEngine()
-            obj._priceFilter = price_range   
-            obj._nameFilter = name
-            obj._ingredientsFilter = ingredients
+            obj.changePrice(price_range)
+            obj.changeName(name)
+            obj.addIngredients(ingredients)
             obj.printEverything()
             recipes = obj.searchFilters()
             print(recipes)
+            FindRecipeDetails(recipes)
 
             #once we have the list of recipes, go read the ingredients for each one
             for i in range (0,len(recipes)):
@@ -34,6 +44,25 @@ def SearchTool(request):
     return render(request,'display/search_tool.html/', {
         'form':form
     })
+
+def FindRecipeDetails(recipes):
+    i = 0
+    read = open("display/DataBase.txt", "r")
+    for line in read:
+        if '*' in line:
+            if line.strip('* ').strip('\n') in recipes[i] and i < 3:
+                outputDetails = open('display/Output.txt', 'a')
+                outputDetails.write(line.strip('* '))
+                outputDetails.write(next(read).strip('& '))
+                outputDetails.write(next(read).strip('$ '))
+                outputDetails.write(next(read).strip(': '))
+                outputDetails.write('\n')
+                outputDetails.close()
+                read.seek(0,0)
+                i += 1
+    read.close()
+
+
 
 def RecipeSubmission(request):
     form = RecipeSubmissionForm(request.POST or None)
