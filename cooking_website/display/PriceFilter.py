@@ -10,7 +10,7 @@ class PriceFilter(Filter):
         if(self._key != 'none'):
         
 
-          if int(self._key.strip('$')) <= int(line.strip('$')):
+          if int(self._key) >= int(line.strip('$')):
 
                hits += 10
                #medium weight
