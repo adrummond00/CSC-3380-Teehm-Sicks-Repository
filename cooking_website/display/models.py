@@ -59,6 +59,12 @@ class SearchEngine():
         self._name = 'none'
         self._ingredients = []
         
+        #default filter initialization
+        self._nameFilter = NameFilter(self._name)
+        self._priceFilter = PriceFilter(self._price)
+        self._ingredientsFilter = IngredientFilter(self._ingredients)
+
+        
     #changes price key
     def changePrice(self, price):
         self._price = price
