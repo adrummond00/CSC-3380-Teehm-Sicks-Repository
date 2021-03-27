@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import SearchToolForm, RecipeSubmissionForm, MealPlanForm, SearchEngine
 import shutil
 import re
+from .meal_plan import daily_plan
 #from .SearchEngine import SearchEngine
 
 def Homepage(request):
@@ -84,8 +85,18 @@ def MealPlan(request):
             name = form['name'].data
             day = form['day'].data
             AddToMealPlan(name, day)
-
-    return render(request, 'display/meal_plan.html/', {'form':form})
+            daily_plan[day] = name
+            
+    return render(request, 'display/meal_plan.html/', {
+        'form': form,
+        'mon': daily_plan['Monday'],
+        'tue': daily_plan['Tuesday'],
+        'wed': daily_plan['Wednesday'],
+        'thu': daily_plan['Thursday'],
+        'fri': daily_plan['Friday'],
+        'sat': daily_plan['Saturday'],
+        'sun': daily_plan['Sunday'],
+    })
 
 def RecipeSubmissionProcess(cost, name, ingredients, direction):
     #form = RecipeSubmissionForm()

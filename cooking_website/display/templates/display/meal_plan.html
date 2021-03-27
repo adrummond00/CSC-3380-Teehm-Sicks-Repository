@@ -2,6 +2,11 @@
     <title>
 
     </title>
+    <style>
+        table, th, td {
+  border: 1px solid black;
+}
+    </style>
     <body>
         <fieldset>
             <form method="POST" action = "">
@@ -10,6 +15,40 @@
                 {{ form.as_p }}
                 <br><input type="submit" value="Add"/>
             </form>
-        </fieldset>
+        </fieldset><br>
+        <table>
+            <tr>
+                <th>Day</th>
+                <th>Recipe</th>
+            </tr>
+            <tr>
+                <td>Monday</td>
+                <td>{{mon}}</td>
+            </tr>
+            <tr>
+                <td>Tuesday</td>
+                <td>{{tue}}</td>
+            </tr>
+            <tr>
+                <td>Wednesday</td>
+                <td>{{wed}}</td>
+            </tr>
+            <tr>
+                <td>Thursday</td>
+                <td>{{thu}}</td>
+            </tr>
+            <tr>
+                <td>Friday</td>
+                <td>{{fri}}</td>
+            </tr>
+            <tr>
+                <td>Saturday</td>
+                <td>{{sat}}</td>
+            </tr>
+            <tr>
+                <td>Sunday</td>
+                <td>{{sun}}</td>
+            </tr>
+        </table>
     </body>
 </html>
