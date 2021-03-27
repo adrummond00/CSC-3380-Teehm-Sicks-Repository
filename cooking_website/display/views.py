@@ -18,7 +18,7 @@ def SearchTool(request):
             name = form['name'].data
             ingredients = form['ingredients'].data
 
-            if price_range == 'under_5':
+            if price_range == 'under_5': #if else statement to convert button value into integer to be compared in the price filter
                 price_range = 5
             elif price_range == '5_10':
                 price_range = 10
