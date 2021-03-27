@@ -31,26 +31,21 @@ def SearchTool(request):
             obj.addIngredients(ingredients)
             obj.printEverything()
             recipes = obj.searchFilters()
-            #print(recipes)
-            #print(FindRecipeDetails(recipes))
             
-            #once we have the list of recipes, go read the ingredients for each one
-            #for i in range (0,len(recipes)):
-            #    print(recipes[i])
-            #    print(FindRecipeDetailsForOneRecipe(recipes[i]))
+            all_recipe_details = []
+
+            for i in range (0,len(recipes)):
+                all_recipe_details.append(FindRecipeDetailsForOneRecipe(recipes[i]))
             
-            #print(recipes)
             return render(request,'display/search_tool.html/', {
                 'form': form,
-                'recipes': json.dumps(recipes)
+                'recipes': json.dumps(all_recipe_details)
             })
     return render(request,'display/search_tool.html/', {
         'form':form
     })
 
 def FindRecipeDetailsForOneRecipe (recipe):
-    #read = open("display/DataBase.txt", "r")
-
     with open('display/DataBase.txt') as f:
         for line in f:
             
@@ -58,7 +53,7 @@ def FindRecipeDetailsForOneRecipe (recipe):
                 ingredients = next(f).strip('& ')
                 cost = next(f).strip('$ ')
                 instructions = next(f).strip(': ')
-                return [ingredients.strip('\n'),cost.strip('\n'),instructions.strip('\n')]
+                return [recipe,cost.strip('\n'),ingredients.strip('\n'),instructions.strip('\n')]
 
 def FindRecipeDetails(recipes):
     i = 0

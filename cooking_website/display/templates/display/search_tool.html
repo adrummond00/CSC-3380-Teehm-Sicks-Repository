@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Search Tool</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     </head>
     <body>
         <p>
@@ -21,7 +22,10 @@
             tableDiv.innerHTML = `<table id='myTable1' border="1" class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Recipes</th>
+                        <th>Name</th>
+                        <th>Cost</th>
+                        <th>Ingredients</th>
+                        <th>Instruction</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,15 +33,27 @@
             </table>`;
             var tableRef =  document.querySelector("table");
             for (var i=0; i<recipes.length; i++){
-                var id = recipes[i];
+                var name = recipes[i][0];
+                var cost = "$"+recipes[i][1];
+                var ingredients = recipes[i][2];
+                var instruction = recipes[i][3];
 
                 var newRow   = tableRef.insertRow();
 
-                var id_cell  = newRow.insertCell(0);
+                var name_cell  = newRow.insertCell(0);
+                var cost_cell  = newRow.insertCell(1);
+                var ingredients_cell  = newRow.insertCell(2);
+                var instruction_cell  = newRow.insertCell(3);
                             
-                var idText  = document.createTextNode(id);
+                var nameText  = document.createTextNode(name);
+                var costText  = document.createTextNode(cost);
+                var ingredientsText  = document.createTextNode(ingredients);
+                var instructiosText  = document.createTextNode(instruction);
 
-                id_cell.appendChild(idText);
+                name_cell.appendChild(nameText);
+                cost_cell.appendChild(costText);
+                ingredients_cell.appendChild(ingredientsText);
+                instruction_cell.appendChild(instructiosText);
             }  
         </script>
     </body>
