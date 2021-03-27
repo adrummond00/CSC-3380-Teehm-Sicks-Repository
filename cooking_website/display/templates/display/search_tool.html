@@ -13,5 +13,32 @@
                 </form>
             </fieldset>
         </p>
+        <div id='tableDiv'></div>
+        <script>
+            var recipes = {{recipes|safe}};
+
+            var tableDiv = document.getElementById("tableDiv");
+            tableDiv.innerHTML = `<table id='myTable1' border="1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Recipes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>`;
+            var tableRef =  document.querySelector("table");
+            for (var i=0; i<recipes.length; i++){
+                var id = recipes[i];
+
+                var newRow   = tableRef.insertRow();
+
+                var id_cell  = newRow.insertCell(0);
+                            
+                var idText  = document.createTextNode(id);
+
+                id_cell.appendChild(idText);
+            }  
+        </script>
     </body>
 </html>

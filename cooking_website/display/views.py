@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import json
 from .models import SearchToolForm, RecipeSubmissionForm, MealPlanForm, SearchEngine
 import shutil
 import re
@@ -24,27 +25,40 @@ def SearchTool(request):
             else:
                 price_range = 15
 
-            
-
             obj = SearchEngine()
             obj.changePrice(price_range)
             obj.changeName(name)
             obj.addIngredients(ingredients)
             obj.printEverything()
             recipes = obj.searchFilters()
-            print(recipes)
-            FindRecipeDetails(recipes)
-
+            #print(recipes)
+            #print(FindRecipeDetails(recipes))
+            
             #once we have the list of recipes, go read the ingredients for each one
-            for i in range (0,len(recipes)):
-                print(i)
+            #for i in range (0,len(recipes)):
+            #    print(recipes[i])
+            #    print(FindRecipeDetailsForOneRecipe(recipes[i]))
+            
+            #print(recipes)
             return render(request,'display/search_tool.html/', {
-                'form':form,
-                'recipe':recipes
+                'form': form,
+                'recipes': json.dumps(recipes)
             })
     return render(request,'display/search_tool.html/', {
         'form':form
     })
+
+def FindRecipeDetailsForOneRecipe (recipe):
+    #read = open("display/DataBase.txt", "r")
+
+    with open('display/DataBase.txt') as f:
+        for line in f:
+            
+            if recipe in line:
+                ingredients = next(f).strip('& ')
+                cost = next(f).strip('$ ')
+                instructions = next(f).strip(': ')
+                return [ingredients.strip('\n'),cost.strip('\n'),instructions.strip('\n')]
 
 def FindRecipeDetails(recipes):
     i = 0
@@ -62,6 +76,7 @@ def FindRecipeDetails(recipes):
                 read.seek(0,0)
                 i += 1
     read.close()
+    #print(outputDetails)
 
 
 
