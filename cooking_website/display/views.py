@@ -59,22 +59,23 @@ def FindRecipeDetailsForOneRecipe (recipe):
                 cost = next(f).strip('$ ')
                 instructions = next(f).strip(': ')
                 return [ingredients.strip('\n'),cost.strip('\n'),instructions.strip('\n')]
-
+#Developed by Ikaika Lee
+#Function to find the details of the returned recipes based on the user's input
 def FindRecipeDetails(recipes):
     i = 0
     read = open("display/DataBase.txt", "r")
     for line in read:
         if '*' in line:
-            if line.strip('* ').strip('\n') in recipes[i] and i < 3:
+            if line.strip('* ').strip('\n') in recipes[i] and i < 3: #checks to see if the current line in the database matches a recipe in the list and makes sure it is only checking the top 3 results
                 outputDetails = open('display/Output.txt', 'a')
-                outputDetails.write(line.strip('* '))
-                outputDetails.write(next(read).strip('& '))
-                outputDetails.write(next(read).strip('$ '))
-                outputDetails.write(next(read).strip(': '))
+                outputDetails.write(line.strip('* ')) #strip the key symbol off the recipe's name in the database
+                outputDetails.write(next(read).strip('& ')) #strip the key symbol off the recipe's ingredients in the database
+                outputDetails.write(next(read).strip('$ ')) #strip the key symbol off the recipe's price in the database
+                outputDetails.write(next(read).strip(': ')) #strip the key symbol off the recipe's steps in the database
                 outputDetails.write('\n')
                 outputDetails.close()
-                read.seek(0,0)
-                i += 1
+                read.seek(0,0) #reposition position in database to the top
+                i += 1 #incrimenting as a recipe is found
     read.close()
     #print(outputDetails)
 
@@ -112,8 +113,9 @@ def MealPlan(request):
         'sat': daily_plan['Saturday'],
         'sun': daily_plan['Sunday'],
     })
-
-def RecipeSubmissionProcess(cost, name, ingredients, direction):
+#developed by Ikaika Lee
+#function adds recipe inputted by the user into the database
+def RecipeSubmissionProcess(cost, name, ingredients, direction): 
     #form = RecipeSubmissionForm()
     recipeSubmit = open("display/DataBase.txt", "a")
     recipeSubmit.write('\n* ')
