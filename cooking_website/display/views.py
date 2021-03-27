@@ -147,3 +147,5 @@ def AddToMealPlan(name, day):
     mealPlan.writelines(allLines)
     mealPlan.close()
     
+def Help(request):
+    return render(request,'display/help.html/')

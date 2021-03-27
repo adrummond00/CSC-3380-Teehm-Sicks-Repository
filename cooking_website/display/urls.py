@@ -7,4 +7,6 @@ urlpatterns = [
     path('search',views.SearchTool,name="SearchTool"),
     path('submission',views.RecipeSubmission,name="RecipeSubmission"),
     path('mealplan',views.MealPlan,name="MealPlan"),    
+    path('help',views.Help,name="Help"),
+
 ]
