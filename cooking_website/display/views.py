@@ -40,7 +40,8 @@ def SearchTool(request):
             FindRecipeDetails(recipes)
             return render(request,'display/search_tool.html/', {
                 'form': form,
-                'recipes': json.dumps(all_recipe_details)
+                'recipes': json.dumps(all_recipe_details),
+                'downloadable': 1,
             })
     return render(request,'display/search_tool.html/', {
         'form':form
@@ -92,25 +93,39 @@ def RecipeSubmission(request):
 
 def MealPlan(request):
     form = MealPlanForm(request.POST or None)
-    #test = SearchEngine("hello","hello","hello")
     #print(test._price)
     if request.method == 'POST':
         if form.is_valid():
             name = form['name'].data
             day = form['day'].data
+            
             AddToMealPlan(name, day)
             daily_plan[day] = name
-            
+            return render(request, 'display/meal_plan.html/', {
+                'form': form,
+                'mon': daily_plan['Monday'],
+                'tue': daily_plan['Tuesday'],
+                'wed': daily_plan['Wednesday'],
+                'thu': daily_plan['Thursday'],
+                'fri': daily_plan['Friday'],
+                'sat': daily_plan['Saturday'],
+                'sun': daily_plan['Sunday'],
+                'downloadable': 1,
+            })
+    f = open("display/MealPlanTemplate.txt", "a")
+    f.truncate(0)
+    f.write('''Monday:\n\n\nTuesday:\n\n\nWednesday:\n\n\nThursday:\n\n\nFriday:\n\n\nSaturday:\n\n\nSunday:\n\n\n''')
+    f.close()
     return render(request, 'display/meal_plan.html/', {
-        'form': form,
-        'mon': daily_plan['Monday'],
-        'tue': daily_plan['Tuesday'],
-        'wed': daily_plan['Wednesday'],
-        'thu': daily_plan['Thursday'],
-        'fri': daily_plan['Friday'],
-        'sat': daily_plan['Saturday'],
-        'sun': daily_plan['Sunday'],
-    })
+            'form': form,
+            'mon': '',
+            'tue': '',
+            'wed': '',
+            'thu': '',
+            'fri': '',
+            'sat': '',
+            'sun': '',
+        })
 #developed by Ikaika Lee
 #function adds recipe inputted by the user into the database
 def RecipeSubmissionProcess(cost, name, ingredients, direction): 
@@ -154,7 +169,7 @@ def Help(request):
 
 def GetTextFile(request):
     file_name = request.GET.get('file_name')
-    with open('display/Output.txt', 'r') as file:
+    with open('display/{}.txt'.format(file_name), 'r') as file:
         output = file.read()
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="{}.txt"'.format(file_name)

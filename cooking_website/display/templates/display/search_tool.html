@@ -14,10 +14,11 @@
                 </form>
             </fieldset>
         </p>
+        {% if downloadable %}
         <p>
-            
-            <button type="button" id="save" title="Save"><a href="download/?file_name=recipes">Save recipes as text file</a></button>
+            <button type="button" id="save" title="Save"><a href="download/?file_name=Output">Save recipes as text file</a></button>
         </p>
+        {% endif %}
         <div id='tableDiv'></div>
         <script>
             var recipes = {{recipes|safe}};
