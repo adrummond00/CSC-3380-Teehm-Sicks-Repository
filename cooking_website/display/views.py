@@ -34,9 +34,10 @@ def SearchTool(request):
 
             all_recipe_details = []
 
-            for i in range (0,len(recipes)):
+            for i in range (0,3):
                 all_recipe_details.append(FindRecipeDetailsForOneRecipe(recipes[i]))
             
+            FindRecipeDetails(recipes)
             return render(request,'display/search_tool.html/', {
                 'form': form,
                 'recipes': json.dumps(all_recipe_details)
@@ -149,3 +150,13 @@ def AddToMealPlan(name, day):
     
 def Help(request):
     return render(request,'display/help.html/')
+
+
+def GetTextFile(request):
+    file_name = request.GET.get('file_name')
+    with open('display/Output.txt', 'r') as file:
+        output = file.read()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="{}.txt"'.format(file_name)
+    response.write(output)
+    return response
