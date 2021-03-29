@@ -38,6 +38,14 @@ meals = (
 #    def showKey(self):
 #        print(self._key)
         
+    def delKey(self):
+
+        self._key = 'none'
+
+    def changeKey(self, key):
+
+        self._key = key
+        
 class MealPlanForm (forms.Form):
     name = forms.CharField(label="Meal Name")
     day = forms.CharField(label='Day', widget=forms.Select(choices= days))
@@ -85,13 +93,21 @@ class SearchEngine():
         
     #changes price key
     def changePrice(self, price):
+
         self._price = price
+        self._priceFilter.changeKey(price)
+        
     #changes Name key
     def changeName(self, Name):
+
         self._name = Name
+        self._nameFilter.changeKey(Name)
+        
     #adds ingredient to ingredients list
     def addIngredients(self, ingredients):
+
         self._ingredients = ingredients.split(",")
+        self._ingredientsFilter.changeKey(ingredients.split(","))
    
 
     #initializes the filters for searching
@@ -103,6 +119,19 @@ class SearchEngine():
 
     def __newIngredientFilter(self):
         self._ingredientsFilter = IngredientFilter(self._ingredients)
+        
+    #delete Keys
+    def deleteName(self):
+        self._nameFilter.delKey()
+
+    def deletePrice(self):
+        self._priceFilter.delKey()
+
+    def deleteAllIngredients(self):
+       self._ingredientsFilter.delKey()
+
+    def deleteIngredient(self, ingredient):
+       self._ingredientsFilter.delIngredient(ingredient)
     
     
     #Search method
@@ -111,11 +140,6 @@ class SearchEngine():
         #resets weight lists
         self.__recipes = []
         self.__hits = []
-        
-        #initializes all the filters
-        self.__newNameFilter()
-        self.__newPriceFilter()
-        self.__newIngredientFilter()
         
         #searches through the recipe database and looks for special symbols that denote the type of information on that line
         file = open('display/DataBase.txt', 'r')

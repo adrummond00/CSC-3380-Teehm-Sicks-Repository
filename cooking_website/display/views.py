@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import json
 from .models import SearchToolForm, RecipeSubmissionForm, MealPlanForm, SearchEngine
 import shutil
-import re
+#import re
 from .meal_plan import daily_plan, daily_meals
 
 
@@ -48,12 +48,11 @@ def SearchTool(request):
             obj.addIngredients(ingredients)
             #obj.printEverything()
             recipes = obj.searchFilters()
-            FindRecipeDetails(recipes)
 
             all_recipe_details = []
             FindRecipeDetails(recipes)
 
-            for i in range (0,3):
+            for i in range (0,5):
                 all_recipe_details.append(FindRecipeDetailsForOneRecipe(recipes[i]))
             
             
@@ -90,7 +89,7 @@ def FindRecipeDetails(recipes):
     read = open("display/DataBase.txt", "r")
     for line in read:
         if '*' in line:
-            if line.strip('* ').strip('\n') in recipes[i] and i < 3: #checks to see if the current line in the database matches a recipe in the list and makes sure it is only checking the top 3 results
+            if line.strip('* ').strip('\n') in recipes[i] and i < 5: #checks to see if the current line in the database matches a recipe in the list and makes sure it is only checking the top 3 results
                 outputDetails = open('display/Output.txt', 'a')
                 outputDetails.write(line.strip('* ')) #strip the key symbol off the recipe's name in the database
                 outputDetails.write(next(read).strip('& ')) #strip the key symbol off the recipe's ingredients in the database
@@ -130,7 +129,6 @@ def RecipeSubmission(request):
 #developed by Jacob Dickson and Ikaika Lee
 def MealPlan(request):
     form = MealPlanForm(request.POST or None)
-    #print(test._price)
     if request.method == 'POST':
         if form.is_valid():
             name = form['name'].data
@@ -175,31 +173,7 @@ def MealPlan(request):
     f.write("Saturday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
     f.write("Sunday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
     f.close()
-    return render(request, 'display/meal_plan.html/', {
-            'form': form,
-            'monBreakfast': '',
-            'monLunch': '',
-            'monDinner': '',
-            'tueBreakfast': '',
-            'tueLunch': '',
-            'tueDinner': '',
-            'wedBreakfast': '',
-            'wedLunch': '',
-            'wedDinner': '',
-            'thuBreakfast': '',
-            'thuLunch': '',
-            'thuDinner': '',
-            'friBreakfast': '',
-            'friLunch': '',
-            'friDinner': '',
-            'satBreakfast': '',
-            'satLunch': '',
-            'satDinner': '',
-            'sunBreakfast': '',
-            'sunLunch': '',
-            'sunDinner': '',
-        })
-
+    
 #developed by Ikaika Lee
 #function adds recipe inputted by the user into the database
 def RecipeSubmissionProcess(cost, name, ingredients, direction): 
