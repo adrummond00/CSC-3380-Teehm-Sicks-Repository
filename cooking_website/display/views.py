@@ -173,6 +173,30 @@ def MealPlan(request):
     f.write("Saturday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
     f.write("Sunday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
     f.close()
+    return render(request, 'display/meal_plan.html/', {
+        'form': form,
+        'monBreakfast': '',
+        'monLunch': '',
+        'monDinner': '',
+        'tueBreakfast': '',
+        'tueLunch': '',
+        'tueDinner': '',
+        'wedBreakfast': '',
+        'wedLunch': '',
+        'wedDinner': '',
+        'thuBreakfast': '',
+        'thuLunch': '',
+        'thuDinner': '',
+        'friBreakfast': '',
+        'friLunch': '',
+        'friDinner': '',
+        'satBreakfast': '',
+        'satLunch': '',
+        'satDinner': '',
+        'sunBreakfast': '',
+        'sunLunch': '',
+        'sunDinner': '',
+    })
     
 #developed by Ikaika Lee
 #function adds recipe inputted by the user into the database

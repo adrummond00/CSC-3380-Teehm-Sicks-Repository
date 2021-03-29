@@ -38,13 +38,13 @@ meals = (
 #    def showKey(self):
 #        print(self._key)
         
-    def delKey(self):
+    #def delKey(self):
 
-        self._key = 'none'
+    #    self._key = 'none'
 
-    def changeKey(self, key):
+    #def changeKey(self, key):
 
-        self._key = key
+    #    self._key = key
         
 class MealPlanForm (forms.Form):
     name = forms.CharField(label="Meal Name")
