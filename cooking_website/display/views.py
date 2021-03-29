@@ -4,7 +4,7 @@ import json
 from .models import SearchToolForm, RecipeSubmissionForm, MealPlanForm, SearchEngine
 import shutil
 import re
-from .meal_plan import daily_plan
+from .meal_plan import daily_plan, daily_meals
 #from .SearchEngine import SearchEngine
 
 def Homepage(request):
@@ -34,10 +34,9 @@ def SearchTool(request):
 
             all_recipe_details = []
 
-            for i in range (0,3):
+            for i in range (0,len(recipes)):
                 all_recipe_details.append(FindRecipeDetailsForOneRecipe(recipes[i]))
             
-            FindRecipeDetails(recipes)
             return render(request,'display/search_tool.html/', {
                 'form': form,
                 'recipes': json.dumps(all_recipe_details),
@@ -98,18 +97,34 @@ def MealPlan(request):
         if form.is_valid():
             name = form['name'].data
             day = form['day'].data
+            meal = form['meal'].data
+            AddToMealPlan(name, day, meal)
+            total = day+meal
+            daily_meals[total] = name
             
-            AddToMealPlan(name, day)
-            daily_plan[day] = name
             return render(request, 'display/meal_plan.html/', {
                 'form': form,
-                'mon': daily_plan['Monday'],
-                'tue': daily_plan['Tuesday'],
-                'wed': daily_plan['Wednesday'],
-                'thu': daily_plan['Thursday'],
-                'fri': daily_plan['Friday'],
-                'sat': daily_plan['Saturday'],
-                'sun': daily_plan['Sunday'],
+                'monBreakfast': daily_meals['MondayBreakfast'],
+                'monLunch': daily_meals['MondayLunch'],
+                'monDinner': daily_meals['MondayDinner'],
+                'tueBreakfast': daily_meals['TuesdayBreakfast'],
+                'tueLunch': daily_meals['TuesdayLunch'],
+                'tueDinner': daily_meals['TuesdayDinner'],
+                'wedBreakfast': daily_meals['WednesdayBreakfast'],
+                'wedLunch': daily_meals['WednesdayLunch'],
+                'wedDinner': daily_meals['WednesdayDinner'],
+                'thuBreakfast': daily_meals['ThursdayBreakfast'],
+                'thuLunch': daily_meals['ThursdayLunch'],
+                'thuDinner': daily_meals['ThursdayDinner'],
+                'friBreakfast': daily_meals['FridayBreakfast'],
+                'friLunch': daily_meals['FridayLunch'],
+                'friDinner': daily_meals['FridayDinner'],
+                'satBreakfast': daily_meals['SaturdayBreakfast'],
+                'satLunch': daily_meals['SaturdayLunch'],
+                'satDinner': daily_meals['SaturdayDinner'],
+                'sunBreakfast': daily_meals['SundayBreakfast'],
+                'sunLunch': daily_meals['SundayLunch'],
+                'sunDinner': daily_meals['SundayDinner'],
                 'downloadable': 1,
             })
     f = open("display/MealPlanTemplate.txt", "a")
@@ -118,14 +133,29 @@ def MealPlan(request):
     f.close()
     return render(request, 'display/meal_plan.html/', {
             'form': form,
-            'mon': '',
-            'tue': '',
-            'wed': '',
-            'thu': '',
-            'fri': '',
-            'sat': '',
-            'sun': '',
+            'monBreakfast': '',
+            'monLunch': '',
+            'monDinner': '',
+            'tueBreakfast': '',
+            'tueLunch': '',
+            'tueDinner': '',
+            'wedBreakfast': '',
+            'wedLunch': '',
+            'wedDinner': '',
+            'thuBreakfast': '',
+            'thuLunch': '',
+            'thuDinner': '',
+            'friBreakfast': '',
+            'friLunch': '',
+            'friDinner': '',
+            'satBreakfast': '',
+            'satLunch': '',
+            'satDinner': '',
+            'sunBreakfast': '',
+            'sunLunch': '',
+            'sunDinner': '',
         })
+
 #developed by Ikaika Lee
 #function adds recipe inputted by the user into the database
 def RecipeSubmissionProcess(cost, name, ingredients, direction): 
@@ -141,27 +171,30 @@ def RecipeSubmissionProcess(cost, name, ingredients, direction):
     recipeSubmit.write(direction)
     recipeSubmit.close()
 
-def AddToMealPlan(name, day):
+def AddToMealPlan(name, day, meal):
     comp = day + ":\n"
-    i = 0
+    compMeal = meal + ':\n'
     mealPlan = open("display/MealPlanTemplate.txt", "r")
-    allLines = mealPlan.readlines()
-    size = len(allLines)
+    fileContent = mealPlan.readlines()
+    i = 3
+    j = 0
+    k = 0
     #print(name)
     #print(allLines[0])
-    while i < size-1:
-        line = allLines[i]
+    for line in fileContent:
         #print(comp)
        #print(line)
         if line == comp:
-            
-            allLines[i+1] = name + "\n"
-        i += 1
-    mealPlan.close()
-    #print(allLines)
+            while j < 7:
+                if fileContent[i+k] == compMeal:
+                    fileContent[(i+k)+1] = name + '\n'
+                i += 2
+                j += 1
+        k += 1
     mealPlan = open("display/MealPlanTemplate.txt", "w")
-    mealPlan.writelines(allLines)
+    mealPlan.writelines(fileContent)
     mealPlan.close()
+    
     
 def Help(request):
     return render(request,'display/help.html/')

@@ -20,6 +20,11 @@ days = (
     ('Friday','Friday'),
     ('Saturday','Saturday'),
 )
+meals = (
+    ('Breakfast','Breakfast'),
+    ('Lunch','Lunch'),
+    ('Dinner','Dinner'),
+)
 
 class Filter:
 
@@ -34,6 +39,7 @@ class Filter:
 class MealPlanForm (forms.Form):
     name = forms.CharField(label="Meal Name")
     day = forms.CharField(label='Day', widget=forms.Select(choices= days))
+    meal = forms.CharField(label='Meal', widget=forms.Select(choices= meals))
 
 class SearchToolForm (forms.Form):
     price_filter = forms.CharField(widget=forms.Select(choices=price_range), required=False)
