@@ -39,7 +39,7 @@ def SearchTool(request):
             all_recipe_details = []
             FindRecipeDetails(recipes)
 
-            for i in range (0,3):
+            for i in range (0,5):
                 all_recipe_details.append(FindRecipeDetailsForOneRecipe(recipes[i]))
             
             
