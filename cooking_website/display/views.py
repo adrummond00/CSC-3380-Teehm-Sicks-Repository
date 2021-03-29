@@ -12,6 +12,10 @@ def Homepage(request):
 
 def SearchTool(request):
     form = SearchToolForm(request.POST or None)
+    f = open("display/Output.txt", "a")
+    f.truncate(0)
+    f.write('')
+    f.close()
     if request.method == 'POST':
         if form.is_valid():
             price_range = form['price_filter'].data
@@ -33,15 +37,18 @@ def SearchTool(request):
             recipes = obj.searchFilters()
 
             all_recipe_details = []
+            FindRecipeDetails(recipes)
 
-            for i in range (0,len(recipes)):
+            for i in range (0,3):
                 all_recipe_details.append(FindRecipeDetailsForOneRecipe(recipes[i]))
+            
             
             return render(request,'display/search_tool.html/', {
                 'form': form,
                 'recipes': json.dumps(all_recipe_details),
                 'downloadable': 1,
             })
+    
     return render(request,'display/search_tool.html/', {
         'form':form
     })
@@ -76,8 +83,6 @@ def FindRecipeDetails(recipes):
                 i += 1 #incrimenting as a recipe is found
     read.close()
     #print(outputDetails)
-
-
 
 def RecipeSubmission(request):
     form = RecipeSubmissionForm(request.POST or None)
