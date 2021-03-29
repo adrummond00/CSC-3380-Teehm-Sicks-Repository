@@ -20,3 +20,15 @@ class IngredientFilter(Filter):
                     #low weight for each ingredient, but multiple ingredients could stack fairly quickly
         return hits
         #returns weight number
+    
+    #deletes all ingredients
+    def delKey(self):
+
+        self._key = []
+
+    #deletes specific ingredient
+    def delIngredient(self, ingredient):
+
+        for item in range(len(self._key)):
+            if ingredient.lower() == self._key[item-1]:
+                del self._key[item-1]

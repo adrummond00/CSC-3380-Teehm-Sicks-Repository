@@ -9,3 +9,11 @@ class Filter:
 
     def showKey(self):
         print(self._key)
+        
+    def delKey(self):
+
+        self._key = 'none'
+
+    def changeKey(self, key):
+
+        self._key = key
