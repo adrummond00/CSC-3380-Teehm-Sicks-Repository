@@ -3,14 +3,22 @@
 
     </title>
     <body>
-        <fieldset>
-            <form method="POST" action = "">
-                <legend><h3>Recipe submission form</h3></legend>
-                {% csrf_token %}
-                {{ form.as_p }}
-                <br><input type="submit" value="View"/>
-            </form>
-        </fieldset>
+        <p>
+            <fieldset>
+                <form method="POST" action = "">
+                    <legend><h3>Recipe submission form</h3></legend>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <br><input type="submit" value="Add"/>
+                </form>
+            </fieldset>
+        </p>
+        <p>
+            {% if success %}
+            <p>Insert successfully!</p>
+            {% endif %}
+        </p>
+        
         
     </body>
 </html>

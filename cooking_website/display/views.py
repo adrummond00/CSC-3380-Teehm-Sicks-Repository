@@ -5,17 +5,29 @@ from .models import SearchToolForm, RecipeSubmissionForm, MealPlanForm, SearchEn
 import shutil
 import re
 from .meal_plan import daily_plan, daily_meals
-#from .SearchEngine import SearchEngine
 
+
+# views.py includes functions that take web requests and returns web responses
+
+
+# Developed by Khanh Vu
+# This function responds to "GET / HTTP/1.1" request to display the Homepage.
 def Homepage(request):
     return render(request,'display/homepage.html/')
 
+# Developed by Khanh Vu
+# This function responds to both "GET /search HTTP/1.1" and "POST /search HTTP/1.1" requests, 
+# if request method is POST and form is valid, it'll read price_filter, name and ingredients,
+# then call SearchEngine to look up those values in the database. The top 3 relevant recipes will
+# then be displayed under the search form.
+# If request method is not POST, only search form is displayed.
 def SearchTool(request):
     form = SearchToolForm(request.POST or None)
     f = open("display/Output.txt", "a")
     f.truncate(0)
     f.write('')
     f.close()
+    
     if request.method == 'POST':
         if form.is_valid():
             price_range = form['price_filter'].data
@@ -29,11 +41,12 @@ def SearchTool(request):
             else:
                 price_range = 15
 
+            # go through all recipes in the database and rank them by relevancy
             obj = SearchEngine()
             obj.changePrice(price_range)
             obj.changeName(name)
             obj.addIngredients(ingredients)
-            obj.printEverything()
+            #obj.printEverything()
             recipes = obj.searchFilters()
             FindRecipeDetails(recipes)
 
@@ -54,6 +67,10 @@ def SearchTool(request):
         'form':form
     })
 
+
+# Developed by Khanh Vu
+# A function that takes one recipe name, finds it in the database and return a list of strings in this format:
+# [<recipe_name>, <cost>, <ingredients>, <instructions>]
 def FindRecipeDetailsForOneRecipe (recipe):
     with open('display/DataBase.txt') as f:
         for line in f:
@@ -63,6 +80,7 @@ def FindRecipeDetailsForOneRecipe (recipe):
                 cost = next(f).strip('$ ')
                 instructions = next(f).strip(': ')
                 return [recipe,cost.strip('\n'),ingredients.strip('\n'),instructions.strip('\n')]
+
 
 #Developed by Ikaika Lee
 #Function to find the details of the returned recipes based on the user's input
@@ -85,6 +103,12 @@ def FindRecipeDetails(recipes):
     read.close()
     #print(outputDetails)
 
+
+# Developed by Khanh Vu
+# This function responds to both "GET /submission HTTP/1.1" and "POST /search HTTP/1.1" requests, 
+# if request method is POST and form is valid, it'll read cost, name and ingredients passed by the web request,
+# then call RecipeSubmissionProcess to insert information to the database and tell the template to return success message.
+# If request method is not POST, only search form is displayed.
 def RecipeSubmission(request):
     form = RecipeSubmissionForm(request.POST or None)
     if request.method == 'POST':
@@ -94,15 +118,19 @@ def RecipeSubmission(request):
             ingredients = form['ingredients'].data
             direction = form['direction'].data
             RecipeSubmissionProcess(cost, name, ingredients, direction)
-    return render(request,'display/recipe_submission.html/', {'form':form})
+            return render(request,'display/recipe_submission.html/', {
+                'form':form,
+                'success_msg': 1,
+            })
+    return render(request,'display/recipe_submission.html/', {
+        'form':form
+    })
+
 
 #developed by Jacob Dickson and Ikaika Lee
 def MealPlan(request):
     form = MealPlanForm(request.POST or None)
-<<<<<<< HEAD
-=======
     #print(test._price)
->>>>>>> 922efb10b1f125c9ae13d1f1619fb72353297e76
     if request.method == 'POST':
         if form.is_valid():
             name = form['name'].data
@@ -139,7 +167,13 @@ def MealPlan(request):
             })
     f = open("display/MealPlanTemplate.txt", "a")
     f.truncate(0)
-    f.write('''Monday:\n\n\nTuesday:\n\n\nWednesday:\n\n\nThursday:\n\n\nFriday:\n\n\nSaturday:\n\n\nSunday:\n\n\n''')
+    f.write("Monday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
+    f.write("Tuesday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
+    f.write("Wednesday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
+    f.write("Thursday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
+    f.write("Friday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
+    f.write("Saturday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
+    f.write("Sunday:\n-Breakfast\n\n-Lunch\n\n-Dinner\n\n")
     f.close()
     return render(request, 'display/meal_plan.html/', {
             'form': form,
@@ -181,6 +215,7 @@ def RecipeSubmissionProcess(cost, name, ingredients, direction):
     recipeSubmit.write(direction)
     recipeSubmit.close()
 
+
 #developed by Jacob Dickson
 #adds the meal to the correct spot in the MealPlanTemplate.txt
 #name = string, name of meal
@@ -215,13 +250,16 @@ def AddToMealPlan(name, day, meal):
     mealPlan.writelines(fileContent)
     mealPlan.close()
 
-def GetTextFile(request):
-    return render(request, 'display/Output.txt')
 
+# Developed by Khanh Vu
+# This function responds to "GET /help HTTP/1.1" request to display the Help page.
 def Help(request):
     return render(request,'display/help.html/')
 
 
+# Developed by Khanh Vu
+# This function responds to "GET /download/?file_name=<file_name> HTTP/1.1" request,
+# which allows user to download the file name
 def GetTextFile(request):
     file_name = request.GET.get('file_name')
     with open('display/{}.txt'.format(file_name), 'r') as file:

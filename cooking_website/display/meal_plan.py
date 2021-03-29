@@ -1,3 +1,4 @@
+# By Khanh Vu and Ikaika Lee
 daily_plan = {
     'Sunday':'',
     'Monday':'',

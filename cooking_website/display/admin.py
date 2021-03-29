@@ -1,3 +1,3 @@
 from django.contrib import admin
 
-# Register your models here.
+# admin.py will be useful later on when we turn the web app into a social platform

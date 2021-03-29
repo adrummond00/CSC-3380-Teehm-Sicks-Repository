@@ -1,14 +1,4 @@
-<<<<<<< HEAD
-Sunday:
-
--Breakfast
-
--Lunch
-
--Dinner
-
 Monday:
-
 -Breakfast
 
 -Lunch
@@ -16,15 +6,13 @@ Monday:
 -Dinner
 
 Tuesday:
-
 -Breakfast
 
 -Lunch
-
+Spicy Chicken Burgers
 -Dinner
 
 Wednesday:
-
 -Breakfast
 
 -Lunch
@@ -32,15 +20,13 @@ Wednesday:
 -Dinner
 
 Thursday:
-
 -Breakfast
 
 -Lunch
 
 -Dinner
-
+Spicy Chicken Burgers
 Friday:
-
 -Breakfast
 
 -Lunch
@@ -48,32 +34,16 @@ Friday:
 -Dinner
 
 Saturday:
-
 -Breakfast
 
 -Lunch
 
 -Dinner
-=======
-Monday:
-
-
-Tuesday:
-
-
-Wednesday:
-
-
-Thursday:
-
-
-Friday:
-
-
-Saturday:
-
 
 Sunday:
-
->>>>>>> 922efb10b1f125c9ae13d1f1619fb72353297e76
+-Breakfast
+Spicy Chicken Burgers
+-Lunch
+Spicy Chicken Burgers
+-Dinner
 
