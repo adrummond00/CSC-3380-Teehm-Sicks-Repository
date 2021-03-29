@@ -136,6 +136,30 @@ def MealPlan(request):
     f.truncate(0)
     f.write('''Monday:\nBreakfast:\nLunch:\nDinner:\nTuesday:\nBreakfast:\nLunch:\nDinner:\nWednesday:\nBreakfast:\nLunch:\nDinner:\nThursday:\nBreakfast:\nLunch:\nDinner:\nFriday:\nBreakfast:\nLunch:\nDinner:\nSaturday:\nBreakfast:\nLunch:\nDinner:\nSunday:\nBreakfast:\nLunch:\nDinner:\n''')
     f.close()
+    return render(request, 'display/meal_plan.html/', {
+            'form': form,
+            'monBreakfast': '',
+            'monLunch': '',
+            'monDinner': '',
+            'tueBreakfast': '',
+            'tueLunch': '',
+            'tueDinner': '',
+            'wedBreakfast': '',
+            'wedLunch': '',
+            'wedDinner': '',
+            'thuBreakfast': '',
+            'thuLunch': '',
+            'thuDinner': '',
+            'friBreakfast': '',
+            'friLunch': '',
+            'friDinner': '',
+            'satBreakfast': '',
+            'satLunch': '',
+            'satDinner': '',
+            'sunBreakfast': '',
+            'sunLunch': '',
+            'sunDinner': '',
+        })
 #developed by Ikaika Lee
 #function adds recipe inputted by the user into the database
 def RecipeSubmissionProcess(cost, name, ingredients, direction): 
