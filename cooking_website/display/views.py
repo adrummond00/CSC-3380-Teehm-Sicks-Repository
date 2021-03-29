@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import json
 from .models import SearchToolForm, RecipeSubmissionForm, MealPlanForm, SearchEngine
 import shutil
-import re
+#import re
 from .meal_plan import daily_plan, daily_meals
 #from .SearchEngine import SearchEngine
 
@@ -31,7 +31,6 @@ def SearchTool(request):
             obj.addIngredients(ingredients)
             obj.printEverything()
             recipes = obj.searchFilters()
-            FindRecipeDetails(recipes)
 
             all_recipe_details = []
 
@@ -94,10 +93,6 @@ def RecipeSubmission(request):
 #developed by Jacob Dickson and Ikaika Lee
 def MealPlan(request):
     form = MealPlanForm(request.POST or None)
-<<<<<<< HEAD
-=======
-    #print(test._price)
->>>>>>> 922efb10b1f125c9ae13d1f1619fb72353297e76
     if request.method == 'POST':
         if form.is_valid():
             name = form['name'].data
@@ -132,10 +127,10 @@ def MealPlan(request):
                 'sunDinner': daily_meals['SundayDinner'],
                 'downloadable': 1,
             })
-    f = open("display/MealPlanTemplate.txt", "a")
-    f.truncate(0)
-    f.write('''Monday:\n\n\nTuesday:\n\n\nWednesday:\n\n\nThursday:\n\n\nFriday:\n\n\nSaturday:\n\n\nSunday:\n\n\n''')
-    f.close()
+    #f = open("display/MealPlanTemplate.txt", "a")
+    #f.truncate(0)
+    #f.write('''Monday:\n\n\nTuesday:\n\n\nWednesday:\n\n\nThursday:\n\n\nFriday:\n\n\nSaturday:\n\n\nSunday:\n\n\n''')
+    #f.close()
     return render(request, 'display/meal_plan.html/', {
             'form': form,
             'monBreakfast': '',
