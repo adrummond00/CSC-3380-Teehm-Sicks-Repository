@@ -132,10 +132,10 @@ def MealPlan(request):
                 'sunDinner': daily_meals['SundayDinner'],
                 'downloadable': 1,
             })
-    #f = open("display/MealPlanTemplate.txt", "a")
-    #f.truncate(0)
-    #f.write('''Monday:\n\n\nTuesday:\n\n\nWednesday:\n\n\nThursday:\n\n\nFriday:\n\n\nSaturday:\n\n\nSunday:\n\n\n''')
-    #f.close()
+    f = open("display/MealPlanTemplate.txt", "a")
+    f.truncate(0)
+    f.write('''Monday:\nBreakfast:\nLunch:\nDinner:\nTuesday:\nBreakfast:\nLunch:\nDinner:\nWednesday:\nBreakfast:\nLunch:\nDinner:\nThursday:\nBreakfast:\nLunch:\nDinner:\nFriday:\nBreakfast:\nLunch:\nDinner:\nSaturday:\nBreakfast:\nLunch:\nDinner:\nSunday:\nBreakfast:\nLunch:\nDinner:\n''')
+    f.close()
     return render(request, 'display/meal_plan.html/', {
             'form': form,
             'monBreakfast': '',
