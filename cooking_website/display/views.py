@@ -31,6 +31,7 @@ def SearchTool(request):
             obj.addIngredients(ingredients)
             obj.printEverything()
             recipes = obj.searchFilters()
+            FindRecipeDetails(recipes)
 
             all_recipe_details = []
 
