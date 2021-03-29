@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Sunday:
 
 -Breakfast
@@ -53,4 +54,26 @@ Saturday:
 -Lunch
 
 -Dinner
+=======
+Monday:
+
+
+Tuesday:
+
+
+Wednesday:
+
+
+Thursday:
+
+
+Friday:
+
+
+Saturday:
+
+
+Sunday:
+
+>>>>>>> 922efb10b1f125c9ae13d1f1619fb72353297e76
 

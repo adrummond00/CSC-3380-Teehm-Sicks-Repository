@@ -8,14 +8,21 @@
 }
     </style>
     <body>
-        <fieldset>
-            <form method="POST" action = "">
-                <legend><h3>Meal plan</h3></legend>
-                {% csrf_token %}
-                {{ form.as_p }}
-                <br><input type="submit" value="Add"/>
-            </form>
-        </fieldset><br>
+        <p>
+            <fieldset>
+                <form method="POST" action = "">
+                    <legend><h3>Meal plan</h3></legend>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <br><input type="submit" value="Add"/>
+                </form>
+            </fieldset><br>
+        </p>
+        {% if downloadable %}
+        <p>
+            <button type="button" id="save" title="Save"><a href="download/?file_name=MealPlanTemplate">Save your meal plan as text file</a></button>
+        </p>
+        {% endif %}
         <table>
             <tr>
                 <th>Day</th>

@@ -39,7 +39,8 @@ def SearchTool(request):
             
             return render(request,'display/search_tool.html/', {
                 'form': form,
-                'recipes': json.dumps(all_recipe_details)
+                'recipes': json.dumps(all_recipe_details),
+                'downloadable': 1,
             })
     return render(request,'display/search_tool.html/', {
         'form':form
@@ -92,6 +93,10 @@ def RecipeSubmission(request):
 #developed by Jacob Dickson and Ikaika Lee
 def MealPlan(request):
     form = MealPlanForm(request.POST or None)
+<<<<<<< HEAD
+=======
+    #print(test._price)
+>>>>>>> 922efb10b1f125c9ae13d1f1619fb72353297e76
     if request.method == 'POST':
         if form.is_valid():
             name = form['name'].data
@@ -101,30 +106,60 @@ def MealPlan(request):
             total = day+meal
             daily_meals[total] = name
             
+            return render(request, 'display/meal_plan.html/', {
+                'form': form,
+                'monBreakfast': daily_meals['MondayBreakfast'],
+                'monLunch': daily_meals['MondayLunch'],
+                'monDinner': daily_meals['MondayDinner'],
+                'tueBreakfast': daily_meals['TuesdayBreakfast'],
+                'tueLunch': daily_meals['TuesdayLunch'],
+                'tueDinner': daily_meals['TuesdayDinner'],
+                'wedBreakfast': daily_meals['WednesdayBreakfast'],
+                'wedLunch': daily_meals['WednesdayLunch'],
+                'wedDinner': daily_meals['WednesdayDinner'],
+                'thuBreakfast': daily_meals['ThursdayBreakfast'],
+                'thuLunch': daily_meals['ThursdayLunch'],
+                'thuDinner': daily_meals['ThursdayDinner'],
+                'friBreakfast': daily_meals['FridayBreakfast'],
+                'friLunch': daily_meals['FridayLunch'],
+                'friDinner': daily_meals['FridayDinner'],
+                'satBreakfast': daily_meals['SaturdayBreakfast'],
+                'satLunch': daily_meals['SaturdayLunch'],
+                'satDinner': daily_meals['SaturdayDinner'],
+                'sunBreakfast': daily_meals['SundayBreakfast'],
+                'sunLunch': daily_meals['SundayLunch'],
+                'sunDinner': daily_meals['SundayDinner'],
+                'downloadable': 1,
+            })
+    f = open("display/MealPlanTemplate.txt", "a")
+    f.truncate(0)
+    f.write('''Monday:\n\n\nTuesday:\n\n\nWednesday:\n\n\nThursday:\n\n\nFriday:\n\n\nSaturday:\n\n\nSunday:\n\n\n''')
+    f.close()
     return render(request, 'display/meal_plan.html/', {
-        'form': form,
-        'monBreakfast': daily_meals['MondayBreakfast'],
-        'monLunch': daily_meals['MondayLunch'],
-        'monDinner': daily_meals['MondayDinner'],
-        'tueBreakfast': daily_meals['TuesdayBreakfast'],
-        'tueLunch': daily_meals['TuesdayLunch'],
-        'tueDinner': daily_meals['TuesdayDinner'],
-        'wedBreakfast': daily_meals['WednesdayBreakfast'],
-        'wedLunch': daily_meals['WednesdayLunch'],
-        'wedDinner': daily_meals['WednesdayDinner'],
-        'thuBreakfast': daily_meals['ThursdayBreakfast'],
-        'thuLunch': daily_meals['ThursdayLunch'],
-        'thuDinner': daily_meals['ThursdayDinner'],
-        'friBreakfast': daily_meals['FridayBreakfast'],
-        'friLunch': daily_meals['FridayLunch'],
-        'friDinner': daily_meals['FridayDinner'],
-        'satBreakfast': daily_meals['SaturdayBreakfast'],
-        'satLunch': daily_meals['SaturdayLunch'],
-        'satDinner': daily_meals['SaturdayDinner'],
-        'sunBreakfast': daily_meals['SundayBreakfast'],
-        'sunLunch': daily_meals['SundayLunch'],
-        'sunDinner': daily_meals['SundayDinner'],
-    })
+            'form': form,
+            'monBreakfast': '',
+            'monLunch': '',
+            'monDinner': '',
+            'tueBreakfast': '',
+            'tueLunch': '',
+            'tueDinner': '',
+            'wedBreakfast': '',
+            'wedLunch': '',
+            'wedDinner': '',
+            'thuBreakfast': '',
+            'thuLunch': '',
+            'thuDinner': '',
+            'friBreakfast': '',
+            'friLunch': '',
+            'friDinner': '',
+            'satBreakfast': '',
+            'satLunch': '',
+            'satDinner': '',
+            'sunBreakfast': '',
+            'sunLunch': '',
+            'sunDinner': '',
+        })
+
 #developed by Ikaika Lee
 #function adds recipe inputted by the user into the database
 def RecipeSubmissionProcess(cost, name, ingredients, direction): 
@@ -179,3 +214,13 @@ def GetTextFile(request):
 
 def Help(request):
     return render(request,'display/help.html/')
+
+
+def GetTextFile(request):
+    file_name = request.GET.get('file_name')
+    with open('display/{}.txt'.format(file_name), 'r') as file:
+        output = file.read()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="{}.txt"'.format(file_name)
+    response.write(output)
+    return response
