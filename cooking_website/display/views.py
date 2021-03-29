@@ -166,7 +166,6 @@ def MealPlan(request):
             'sunLunch': '',
             'sunDinner': '',
         })
-
 #developed by Ikaika Lee
 #function adds recipe inputted by the user into the database
 def RecipeSubmissionProcess(cost, name, ingredients, direction): 
