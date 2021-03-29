@@ -1,62 +1,56 @@
 Sunday:
-garlic parmesan roasted cauliflower
 
-Breakfast:
-oranges
-Lunch:
+-Breakfast
 
-Dinner:
+-Lunch
+
+-Dinner
 
 Monday:
-Garlic Butter Shrimp
 
-Breakfast:
+-Breakfast
 
-Lunch:
+-Lunch
 
-Dinner:
+-Dinner
 
 Tuesday:
-Garlic Marinated Chicken
 
-Breakfast:
+-Breakfast
 
-Lunch:
+-Lunch
 
-Dinner:
+-Dinner
 
 Wednesday:
-garlic parmesan roasted cauliflower
 
-Breakfast:
-banana
-Lunch:
+-Breakfast
 
-Dinner:
+-Lunch
+
+-Dinner
 
 Thursday:
-Garlic Parmesan Roasted Cauliflower
 
-Breakfast:
+-Breakfast
 
-Lunch:
+-Lunch
 
-Dinner:
+-Dinner
 
 Friday:
-Grilled cheese and tomato soup
 
-Breakfast:
+-Breakfast
 
-Lunch:
+-Lunch
 
-Dinner:
+-Dinner
 
 Saturday:
-Ground Turkey Taco Salad
 
-Breakfast:
+-Breakfast
 
-Lunch:
+-Lunch
 
-Dinner:
+-Dinner
+

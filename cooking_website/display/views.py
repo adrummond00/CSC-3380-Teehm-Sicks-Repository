@@ -89,10 +89,9 @@ def RecipeSubmission(request):
             RecipeSubmissionProcess(cost, name, ingredients, direction)
     return render(request,'display/recipe_submission.html/', {'form':form})
 
+#developed by Jacob Dickson and Ikaika Lee
 def MealPlan(request):
     form = MealPlanForm(request.POST or None)
-    #test = SearchEngine("hello","hello","hello")
-    #print(test._price)
     if request.method == 'POST':
         if form.is_valid():
             name = form['name'].data
@@ -141,30 +140,42 @@ def RecipeSubmissionProcess(cost, name, ingredients, direction):
     recipeSubmit.write(direction)
     recipeSubmit.close()
 
+#developed by Jacob Dickson
+#adds the meal to the correct spot in the MealPlanTemplate.txt
+#name = string, name of meal
+#day = string, day of the week
+#meal = string, type of meal ex: Breakfast, Lunch, and Dinner
 def AddToMealPlan(name, day, meal):
     comp = day + ":\n"
-    compMeal = meal + ':\n'
+    compMeal = "-" + meal + "\n"
     mealPlan = open("display/MealPlanTemplate.txt", "r")
     fileContent = mealPlan.readlines()
-    i = 3
-    j = 0
-    k = 0
-    #print(name)
-    #print(allLines[0])
-    for line in fileContent:
-        #print(comp)
-       #print(line)
-        if line == comp:
-            while j < 7:
-                if fileContent[i+k] == compMeal:
-                    fileContent[(i+k)+1] = name + '\n'
-                i += 2
-                j += 1
-        k += 1
+    correctDay = False
+    correctMeal = False
+    
+    i = 0
+    while i < len(fileContent) - 1:
+        if fileContent[i] == comp:
+            correctDay = True
+            correctMeal = False
+        
+        if fileContent[i] == compMeal:
+            correctMeal = True
+
+        if correctDay and correctMeal:
+            fileContent[i+1] = name + "\n"
+            correctDay = False
+            correctMeal = False
+        i += 1
+
+    mealPlan.close()
+    
     mealPlan = open("display/MealPlanTemplate.txt", "w")
     mealPlan.writelines(fileContent)
     mealPlan.close()
-    
-    
+
+def GetTextFile(request):
+    return render(request, 'display/Output.txt')
+
 def Help(request):
     return render(request,'display/help.html/')
