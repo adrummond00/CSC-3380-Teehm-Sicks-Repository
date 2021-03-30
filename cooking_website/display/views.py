@@ -244,6 +244,7 @@ def AddToMealPlan(name, day, meal):
 
     mealPlan.close()
     
+    # Opens and adds additions to the Meal Plan Template and closes the file
     mealPlan = open("display/MealPlanTemplate.txt", "w")
     mealPlan.writelines(fileContent)
     mealPlan.close()
