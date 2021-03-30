@@ -146,6 +146,7 @@ class SearchEngine():
         
         i=-1    #keeps track of what recipe we are on
        
+       # Removes Symbols used for scanning through the Database File
         for line in file:
             
             if '*' in line: #name symbol
